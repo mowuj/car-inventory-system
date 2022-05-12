@@ -28,6 +28,25 @@ async function run() {
             const car = await carCollection.findOne(query);
             res.send(car);
         });
+        app.post('/cars', async (req, res) => {
+            const newCar = req.body;
+            const result = await carCollection.insertOne(newCar);
+            res.send(result);
+        });
+        // app.put('/cars/:id', async (req, res) => {
+        //     const id = req.params.id;
+        //     const updatedQuantity = req.body;
+        //     const filter = { _id: ObjectId(id) };
+        //     const options = { upsert: true };
+        //     const updatedDoc = {
+        //         $set: {
+        //             quantity: updatedQuantity.quantity,
+                    
+        //         }
+        //     };
+        //     const result = await userCollection.updateOne(filter, updatedDoc, options);
+        //     res.send(result)
+        // })  
         app.delete('/cars/:id', async (req, res) => {
             const id = req.params.id;
             const query = { _id: ObjectId(id) };

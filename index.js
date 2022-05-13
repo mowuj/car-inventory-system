@@ -56,20 +56,34 @@ async function run() {
             const result = await carCollection.insertOne(newCar);
             res.send(result);
         });
+        // app.put('/cars/:id', async (req, res) => {
+        //     const id = req.params.id;
+        //     const updatedQuantity = req.body;
+        //     const filter = { _id: ObjectId(id) };
+        //     const options = { upsert: true };
+        //     const updatedDoc = {
+        //         $set: {
+        //             quantity: updatedQuantity.quantity
+                    
+        //         }
+        //     };
+        //     const result = await carCollection.updateOne(filter, updatedDoc, options);
+        //     res.send(result)
+        // })  
         app.put('/cars/:id', async (req, res) => {
             const id = req.params.id;
-            const updatedQuantity = req.body;
+            const updatedCar = req.body;
             const filter = { _id: ObjectId(id) };
             const options = { upsert: true };
             const updatedDoc = {
                 $set: {
-                    quantity: updatedQuantity.quantity
+                    name: updatedCar.name,
                     
                 }
             };
             const result = await carCollection.updateOne(filter, updatedDoc, options);
             res.send(result)
-        })  
+        }) 
         app.get('/cars', verifyJWT, async (req, res) => {
             const decodedEmail = req.decoded.email
             const email = req.query.email;
@@ -103,6 +117,3 @@ app.get('/', (req, res) => {
 app.listen(port, () => {
     console.log('Listening to port',port);
 })
-// m64sx8DQ5FN8dM3y
-// carInventory
-// cm7dPyMxCXBzfRsS
